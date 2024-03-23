@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    
     <meta charset="UTF-8">
         <img src="https://static.wikia.nocookie.net/esgta/images/d/dd/Burger_Shot.png" alt="Burger Shot Logo" style="max-width: 10%; height: 10%;">   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Asegura que la página sea responsive -->
+    <center>
     <title>Calculadora de Ingredientes para Hamburguesas</title>
     <style>
         body {
@@ -15,13 +18,25 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            font-size: 16px; /* Tamaño base de fuente */
         }
-    
-        h1 {
-            color: #d9534f;
-            margin-bottom: 1rem;
+        
+        /* Ajustes para pantallas pequeñas */
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px; /* Tamaño de fuente más pequeño para dispositivos móviles */
+            }
+
+            select, input, button {
+                width: 100%; /* Hace que los inputs ocupen el ancho completo en dispositivos pequeños */
+            }
         }
-    
+
+        /* Aumento de tamaño de fuente para elementos específicos */
+        h1, h2 {
+            font-size: 2rem; /* Tamaño de fuente más grande para los encabezados */
+        }
+
         .container {
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             background: #fff;
@@ -29,12 +44,13 @@
             border-radius: 8px;
             margin-bottom: 20px;
         }
-    
+        
         label, option {
             font-family: 'Arial', sans-serif;
             color: #555;
+            font-size: 1rem; /* Tamaño de fuente ajustado para mejorar la legibilidad */
         }
-    
+        
         select, input, button {
             background-color: #fff;
             border: 1px solid #ccc;
@@ -44,86 +60,38 @@
             border-radius: 20px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             cursor: pointer;
-            width: 200px;
         }
-    
+        
         button:hover {
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
-    
+        
         ul {
             list-style-type: none;
             padding: 0;
         }
-    
+        
         li {
             margin: 10px 0;
             color: #555;
         }
-    
+        
         .ingrediente-cantidad {
             font-weight: bold;
         }
-    
+        
         .ingrediente-icono {
             margin-right: 5px;
         }
-    
+        
         .ingrediente-nombre {
             font-style: italic;
         }
     </style>
-    
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const recetas = {
-    "Patatas fritas": ["x1 Patatas fritas 🍟", "x1 Botellita de aceite 🛢️"],
-    "Trozo de pollo frito": ["x1 Trozo de pollo crudo 🍗", "x1 Botellita de aceite 🛢️"],
-    "Wrap de carne": ["x1 Rodaja de lechuga 🥬", "x1 Carne de caza cruda 🥩", "x1 Tortita de maiz 🌮", "x1 Loncha de queso 🧀", "x1 Rodaja de tomate 🍅", "x1 Botellita de aceite 🛢️"],
-    "Wrap de pollo": ["x1 Rodaja de lechuga 🥬", "x1 Trozo de pollo crudo 🍗", "x1 Tortita de maiz 🌮", "x1 Loncha de queso 🧀", "x1 Rodaja de tomate 🍅", "x1 Botellita de aceite 🛢️"],
-    "Ensalada de pollo a la miel": ["x1 Trozo de pollo frito 🍗", "x1 Rodaja de tomate 🍅", "x1 Rodaja de lechuga 🥬", "x1 Tarro de miel 🍯"],
-    "Hamburguesa": ["x1 Rodaja de lechuga 🥬", "x1 Pan de hamburguesa 🍔", "x1 Loncha de queso 🧀", "x1 Rodaja de tomate 🍅", "x1 Botellita de aceite 🛢️", "x1 Carne de caza cruda 🥩"],
-    "Hamburguesa dobleshot": ["x2 Rodaja de lechuga 🥬", "x1 Pan de hamburguesa 🍔", "x2 Loncha de queso 🧀", "x2 Rodaja de tomate 🍅", "x1 Botellita de aceite 🛢️", "x2 Carne de caza cruda 🥩"],
-    "Hamburguesa gloriosa": ["x2 Rodaja de lechuga 🥬", "x1 Pan de hamburguesa 🍔", "x2 Loncha de queso 🧀", "x2 Rodaja de tomate 🍅", "x1 Botellita de aceite 🛢️", "x2 Carne de caza cruda 🥩"],
-    "Helado Meteorite": ["x1 Botella de leche 🥛", "x1 Nata en spray 🍦", "x1 Cacao en polvo 🍫"],
-    "Hamburguesa gigante": ["x4 Rodaja de lechuga 🥬", "x1 Pan de hamburguesa 🍔", "x4 Loncha de queso 🧀", "x4 Rodaja de tomate 🍅", "x1 Botellita de aceite 🛢️", "x4 Carne de caza cruda 🥩", "x1 Tarro de miel 🍯"],
-    "Helado Orangotang": ["x1 Botella de leche 🥛", "x1 Botella de siropes 🍯", "x1 Nata en spray 🍦"]
-};
-
-
-            const selectComida = document.getElementById('comida');
-            const inputCantidad = document.getElementById('cantidad');
-            const listaIngredientes = document.getElementById('ingredientes');
-
-            function actualizarIngredientes() {
-                const seleccion = selectComida.value;
-                const cantidad = parseInt(inputCantidad.value, 10) || 1;
-                const ingredientes = recetas[seleccion];
-
-                listaIngredientes.innerHTML = '';
-                if (ingredientes && cantidad > 0) {
-                    ingredientes.forEach(function(ingredienteTexto) {
-                        const partes = ingredienteTexto.match(/x(\d+)\s(.+)/);
-                        if (partes) {
-                            const nombreIngrediente = partes[2];
-                            const nuevaCantidad = parseInt(partes[1], 10) * cantidad;
-
-                            const item = document.createElement('li');
-                            item.innerHTML = `<span class="ingrediente-cantidad">x${nuevaCantidad}</span> <span class="ingrediente-nombre">${nombreIngrediente}</span>`;
-                            listaIngredientes.appendChild(item);
-                        }
-                    });
-                }
-            }
-
-            selectComida.addEventListener('change', actualizarIngredientes);
-            inputCantidad.addEventListener('input', actualizarIngredientes);
-        });
-    </script>
 </head>
 <body>
     <h1>Calculadora de Ingredientes para Hamburguesas</h1>
+    <!-- El contenido permanece igual -->
     <label for="comida">Selecciona una comida:</label>
     <select id="comida">
         <option value="">--Por favor, selecciona una opción--</option>
@@ -150,5 +118,52 @@
     <ul id="ingredientes">
         <!-- Los ingredientes se mostrarán aquí -->
     </ul>
+    
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const recetas = {
+"Patatas fritas": ["x1 Patatas fritas 🍟", "x1 Botellita de aceite 🛢️"],
+"Trozo de pollo frito": ["x1 Trozo de pollo crudo 🍗", "x1 Botellita de aceite 🛢️"],
+"Wrap de carne": ["x1 Rodaja de lechuga 🥬", "x1 Carne de caza cruda 🥩", "x1 Tortita de maiz 🌮", "x1 Loncha de queso 🧀", "x1 Rodaja de tomate 🍅", "x1 Botellita de aceite 🛢️"],
+"Wrap de pollo": ["x1 Rodaja de lechuga 🥬", "x1 Trozo de pollo crudo 🍗", "x1 Tortita de maiz 🌮", "x1 Loncha de queso 🧀", "x1 Rodaja de tomate 🍅", "x1 Botellita de aceite 🛢️"],
+"Ensalada de pollo a la miel": ["x1 Trozo de pollo frito 🍗", "x1 Rodaja de tomate 🍅", "x1 Rodaja de lechuga 🥬", "x1 Tarro de miel 🍯"],
+"Hamburguesa": ["x1 Rodaja de lechuga 🥬", "x1 Pan de hamburguesa 🍔", "x1 Loncha de queso 🧀", "x1 Rodaja de tomate 🍅", "x1 Botellita de aceite 🛢️", "x1 Carne de caza cruda 🥩"],
+"Hamburguesa dobleshot": ["x2 Rodaja de lechuga 🥬", "x1 Pan de hamburguesa 🍔", "x2 Loncha de queso 🧀", "x2 Rodaja de tomate 🍅", "x1 Botellita de aceite 🛢️", "x2 Carne de caza cruda 🥩"],
+"Hamburguesa gloriosa": ["x2 Rodaja de lechuga 🥬", "x1 Pan de hamburguesa 🍔", "x2 Loncha de queso 🧀", "x2 Rodaja de tomate 🍅", "x1 Botellita de aceite 🛢️", "x2 Carne de caza cruda 🥩"],
+"Helado Meteorite": ["x1 Botella de leche 🥛", "x1 Nata en spray 🍦", "x1 Cacao en polvo 🍫"],
+"Hamburguesa gigante": ["x4 Rodaja de lechuga 🥬", "x1 Pan de hamburguesa 🍔", "x4 Loncha de queso 🧀", "x4 Rodaja de tomate 🍅", "x1 Botellita de aceite 🛢️", "x4 Carne de caza cruda 🥩", "x1 Tarro de miel 🍯"],
+"Helado Orangotang": ["x1 Botella de leche 🥛", "x1 Botella de siropes 🍯", "x1 Nata en spray 🍦"]
+};
+
+
+        const selectComida = document.getElementById('comida');
+        const inputCantidad = document.getElementById('cantidad');
+        const listaIngredientes = document.getElementById('ingredientes');
+
+        function actualizarIngredientes() {
+            const seleccion = selectComida.value;
+            const cantidad = parseInt(inputCantidad.value, 10) || 1;
+            const ingredientes = recetas[seleccion];
+
+            listaIngredientes.innerHTML = '';
+            if (ingredientes && cantidad > 0) {
+                ingredientes.forEach(function(ingredienteTexto) {
+                    const partes = ingredienteTexto.match(/x(\d+)\s(.+)/);
+                    if (partes) {
+                        const nombreIngrediente = partes[2];
+                        const nuevaCantidad = parseInt(partes[1], 10) * cantidad;
+
+                        const item = document.createElement('li');
+                        item.innerHTML = `<span class="ingrediente-cantidad">x${nuevaCantidad}</span> <span class="ingrediente-nombre">${nombreIngrediente}</span>`;
+                        listaIngredientes.appendChild(item);
+                    }
+                });
+            }
+        }
+
+        selectComida.addEventListener('change', actualizarIngredientes);
+        inputCantidad.addEventListener('input', actualizarIngredientes);
+    });
+</script></center>
 </html>
