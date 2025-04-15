@@ -26,17 +26,39 @@ body {
 
 .main-content header {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between; /* Ajustar para espacio entre búsqueda e historial */
     align-items: center;
     margin-bottom: 20px;
+    gap: 15px; /* Espacio entre elementos */
+    flex-wrap: wrap; /* Permitir que pasen abajo en pantallas pequeñas */
 }
-
 .main-content header input[type="search"] {
     padding: 10px 15px;
     border: 1px solid #eee;
     border-radius: 20px;
-    width: 300px;
     font-size: 1em;
+    flex-grow: 1; /* Permitir que la búsqueda crezca */
+    min-width: 200px; /* Ancho mínimo */
+    max-width: 400px; /* Limitar ancho máximo */
+}
+#history-btn {
+    padding: 8px 15px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9em;
+    white-space: nowrap; /* Evitar salto de línea */
+    transition: background-color 0.3s ease;
+}
+#history-btn i {
+    color: #555;
+}
+#history-btn:hover {
+    background-color: #e0e0e0;
 }
 
 .category-selector h3, .menu-items h3 {
@@ -137,7 +159,152 @@ body {
     background-color: #c0392b; /* Rojo oscuro */
 }
 
-/* --- Sección de Factura/Cuenta --- */
+/* --- Sección Historial de Pedidos --- */
+.order-history {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap; /* Para botón de borrar en pantallas pequeñas */
+    gap: 10px;
+}
+.order-history h3 {
+    margin: 0;
+    font-size: 1.2em;
+}
+#clear-history-btn {
+    padding: 5px 10px;
+    background-color: #fcefee; /* Fondo rosa claro */
+    border: 1px solid #e74c3c; /* Borde rojo */
+    color: #e74c3c; /* Texto rojo */
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.85em;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+#clear-history-btn:hover:not(:disabled) { /* Solo aplicar hover si no está deshabilitado */
+    background-color: #e74c3c;
+    color: white;
+}
+#clear-history-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #fcefee; /* Mantener color base pero opaco */
+    color: #e74c3c;
+    border-color: #e74c3c;
+}
+
+#history-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 400px; /* Altura máxima antes de scroll */
+    overflow-y: auto;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background-color: #fafafa; /* Fondo ligeramente gris para la lista */
+}
+
+/* Item individual en la lista de historial */
+#history-list li {
+    padding: 10px 15px; /* Reducido padding vertical */
+    border-bottom: 1px solid #eee;
+    font-size: 0.9em;
+    display: flex; /* Usar flex para alinear botón de copiar */
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px; /* Espacio entre contenido y botón */
+}
+#history-list li:last-child {
+    border-bottom: none;
+}
+/* Mensaje "No hay pedidos" / "Cargando" */
+#history-list li:only-child {
+    text-align: center; color: #777; font-style: italic; padding: 20px; justify-content: center;
+}
+
+/* Contenedor principal del texto del item (izquierda) */
+.history-item-content {
+    flex-grow: 1; /* Ocupa el espacio disponible */
+    display: flex;
+    flex-direction: column; /* Apilar info y detalles */
+    gap: 4px; /* Pequeño espacio entre líneas */
+    min-width: 0; /* Necesario para que text-overflow funcione */
+}
+
+/* Cabecera del item (Fecha y Total) */
+.history-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline; /* Alinear por la base */
+    margin-bottom: 0; /* Eliminado margen inferior */
+    flex-wrap: wrap;
+    gap: 5px 10px; /* Espacio vertical y horizontal */
+}
+.history-item-header .timestamp {
+    font-size: 0.8em; /* Más pequeño */
+    color: #777;
+    white-space: nowrap;
+}
+.history-item-header .order-total {
+    font-weight: bold;
+    font-size: 1em; /* Tamaño normal */
+    white-space: nowrap;
+}
+
+/* Detalles (lista de items compacta) */
+.history-item-details {
+    font-size: 0.85em; /* Más pequeño */
+    color: #555;
+    line-height: 1.3; /* Espaciado de línea */
+    white-space: nowrap; /* Evitar salto de línea */
+    overflow: hidden; /* Ocultar si desborda */
+    text-overflow: ellipsis; /* Mostrar ... si desborda */
+}
+
+/* Botón para copiar pedido individual */
+.copy-history-order-btn {
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    color: #333;
+    border-radius: 50%; /* Circular */
+    width: 30px;   /* Tamaño fijo */
+    height: 30px;  /* Tamaño fijo */
+    flex-shrink: 0; /* No encoger */
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9em; /* Tamaño del icono */
+    transition: all 0.2s ease;
+    padding: 0;
+}
+.copy-history-order-btn i {
+    transition: transform 0.2s ease;
+    pointer-events: none; /* Asegurar que el clic va al botón */
+}
+.copy-history-order-btn:hover {
+    background-color: #e0e0e0;
+    border-color: #aaa;
+}
+/* Estilo temporal para feedback de copia */
+.copy-history-order-btn.copied i::before {
+    content: "\f00c"; /* Icono check de Font Awesome */
+    font-family: "Font Awesome 6 Free"; /* Asegúrate que coincide */
+    font-weight: 900;
+    color: green;
+}
+
+/* --- Sección de Cuenta Actual --- */
 .billing-section {
     width: 320px;
     flex-shrink: 0; /* No encoger */
@@ -163,6 +330,7 @@ body {
     margin: 0 0 20px 0;
     flex-grow: 1; /* Ocupa espacio vertical */
     overflow-y: auto; /* Scroll si es necesario */
+    min-height: 100px; /* Altura mínima para que no colapse */
 }
 
 .bill-items li {
@@ -219,6 +387,8 @@ body {
 
 .bill-summary {
     margin-bottom: 20px;
+    padding-top: 10px; /* Espacio antes del subtotal */
+    border-top: 1px solid #eee; /* Separador antes del resumen */
     font-size: 0.9em;
 }
 .bill-summary div {
@@ -257,7 +427,7 @@ body {
     color: #333;
 }
 
-/* Botón para borrar cuenta */
+/* Botón para borrar cuenta actual */
 .clear-bill-btn {
     background-color: #f8f8f8;
     color: #e74c3c;
@@ -275,7 +445,7 @@ body {
      border-color: #e74c3c;
 }
 
-/* Botón principal de Cobrar */
+/* Botón principal de Cobrar/Finalizar */
 .checkout-btn {
     background-color: #e74c3c; /* Rojo */
     color: white;
@@ -284,8 +454,9 @@ body {
     border-radius: 8px;
     cursor: pointer;
     font-size: 1.1em;
+    font-weight: bold;
     width: 100%;
-    margin-top: 0; /* Asegurarse que no tenga margen superior automático */
+    margin-top: auto; /* Empujar hacia abajo si hay espacio */
     transition: background-color 0.3s ease;
 }
 .checkout-btn:hover {
@@ -312,13 +483,39 @@ body {
     .main-content { order: 1; } /* Menú primero */
     .billing-section { order: 2; } /* Cuenta después */
 
+    .main-content header {
+        flex-direction: column; /* Apila búsqueda e historial */
+        align-items: stretch; /* Ocupan todo el ancho */
+    }
+     .main-content header input[type="search"] {
+        width: 100%;
+        max-width: none; /* Quita límite */
+        box-sizing: border-box; /* Incluir padding/border en ancho */
+    }
+     #history-btn {
+        margin-top: 10px; /* Espacio si baja de línea */
+        justify-content: center; /* Centrar texto e icono */
+    }
+
     .items-grid {
         grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); /* Tarjetas más pequeñas */
     }
-    .main-content header input[type="search"] {
-        width: 100%; /* Barra de búsqueda ocupa todo */
-    }
     .item-card h4 {
         min-height: 2.5em; /* Ajustar altura mínima nombre */
+    }
+    #history-list {
+        max-height: 300px; /* Menos altura en móvil */
+    }
+     #history-list li {
+        font-size: 0.85em; /* Un poco más pequeño en móvil */
+        padding: 8px 10px;
+    }
+     .copy-history-order-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 0.8em;
+    }
+    .history-item-details {
+        font-size: 0.8em;
     }
 }
