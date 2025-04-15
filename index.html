@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATOM POS</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="pos-container">
+
+        <main class="main-content">
+            <header>
+                <input type="search" placeholder="Buscar producto...">
+            </header>
+
+            <section class="category-selector">
+                <h3>Elige Categoría</h3>
+                <div class="categories">
+                    <button class="category active" data-category="all">
+                        <i class="fas fa-star"></i> Todas
+                    </button>
+                    <button class="category" data-category="BEBIDAS">
+                        <i class="fas fa-wine-glass"></i> BEBIDAS
+                    </button>
+                    <button class="category" data-category="COMIDA ATOM">
+                         <i class="fas fa-hamburger"></i> COMIDA ATOM
+                    </button>
+                    <button class="category" data-category="BEBIDAS EXTERNAS">
+                         <i class="fas fa-cocktail"></i> BEBIDAS EXTERNAS
+                    </button>
+                     <button class="category" data-category="COMIDA EXTERNAS">
+                        <i class="fas fa-utensils"></i> COMIDA EXTERNAS
+                    </button>
+                </div>
+            </section>
+
+            <section class="menu-items">
+                <h3 id="menu-title">Todos los Productos</h3>
+                <div class="items-grid">
+                    <div class="item-card" data-category="BEBIDAS">
+                        <img src="https://media.discordapp.net/attachments/677238617583910912/1361649133940904006/image.png?ex=67ff8613&is=67fe3493&hm=b2d16cd6501f4c9e0dbbab733387f16f36389abc49a94d2ed351f956a4fed485&=&format=webp&quality=lossless" alt="POWER UP-ATOM">
+                        <h4>POWER UP-ATOM</h4>
+                        <p class="price">€35.00</p> <button class="add-btn" data-id="bev1" data-name="POWER UP-ATOM" data-price="35.00">Añadir</button>
+                    </div>
+                    <div class="item-card" data-category="BEBIDAS">
+                        <img src="https://media.discordapp.net/attachments/677238617583910912/1361649098075279441/image.png?ex=67ff860b&is=67fe348b&hm=7b8c253703bde12064ef81fac40a86247110e0fdf09125ffc563444fb7cbb1e4&=&format=webp&quality=lossless" alt="CERVEZA 0.0 UP-ATOM">
+                        <h4>CERVEZA 0.0 UP-ATOM</h4>
+                        <p class="price">€35.00</p> <button class="add-btn" data-id="bev2" data-name="CERVEZA 0.0 UP-ATOM" data-price="35.00">Añadir</button>
+                    </div>
+                    <div class="item-card" data-category="BEBIDAS">
+                        <img src="https://media.discordapp.net/attachments/677238617583910912/1361649025769803786/image.png?ex=67ff85f9&is=67fe3479&hm=c82210579ed1c5f7f892863f3efe46b1592d5b45f783b58a999a565afcdf4e4f&=&format=webp&quality=lossless" alt="NARANJA UPATOM">
+                        <h4>NARANJA UPATOM</h4>
+                        <p class="price">€35.00</p> <button class="add-btn" data-id="bev3" data-name="NARANJA UPATOM" data-price="35.00">Añadir</button>
+                    </div>
+                     <div class="item-card" data-category="BEBIDAS">
+                        <img src="https://media.discordapp.net/attachments/677238617583910912/1361649169651077150/image.png?ex=67ff861c&is=67fe349c&hm=d1cb1ac180c7619cd040ae76421179170ea59ea5f903aaa5553ccc626d333401&=&format=webp&quality=lossless" alt="REFRESCO DE LIMON">
+                        <h4>REFRESCO DE LIMON</h4>
+                        <p class="price">€35.00</p> <button class="add-btn" data-id="bev4" data-name="REFRESCO DE LIMON" data-price="35.00">Añadir</button>
+                    </div>
+
+                    <div class="item-card" data-category="COMIDA ATOM">
+                        <img src="https://media.discordapp.net/attachments/677238617583910912/1361647669289812088/image.png?ex=67ff84b6&is=67fe3336&hm=3a92ed151b609c604ce474c3aa14b8b7027df82ee3b7533a0d30ec076da1eaa4&=&format=webp&quality=lossless" alt="SMASH BURGER ATOM">
+                        <h4>SMASH BURGER ATOM</h4>
+                        <p class="price">€35.00</p> <button class="add-btn" data-id="com1" data-name="SMASH BURGER ATOM" data-price="35.00">Añadir</button>
+                    </div>
+                     <div class="item-card" data-category="COMIDA ATOM">
+                        <img src="https://media.discordapp.net/attachments/677238617583910912/1361647568496492625/image.png?ex=67ff849e&is=67fe331e&hm=81b83c264e286716efb36b8058b54d4d0d1a9f21ddd81a32b006b0ce34a05a66&=&format=webp&quality=lossless" alt="CRUJIENTE DE POLLO">
+                        <h4>CRUJIENTE DE POLLO</h4>
+                        <p class="price">€35.00</p> <button class="add-btn" data-id="com2" data-name="CRUJIENTE DE POLLO" data-price="35.00">Añadir</button>
+                    </div>
+                    <div class="item-card" data-category="COMIDA ATOM">
+                        <img src="https://cdn.discordapp.com/attachments/677238617583910912/1361648675096629278/image.png?ex=67ff85a6&is=67fe3426&hm=389dff8c3c95a21ccbcb16c0fbdfadfe552996c3f8ee64433bda4c2cbff79057&" alt="VEGANIAM ATOM">
+                        <h4>VEGANIAM ATOM</h4>
+                        <p class="price">€35.00</p> <button class="add-btn" data-id="com3" data-name="VEGANIAM ATOM" data-price="35.00">Añadir</button>
+                    </div>
+                    <div class="item-card" data-category="COMIDA ATOM">
+                        <img src="https://media.discordapp.net/attachments/677238617583910912/1361648893745692885/image.png?ex=67ff85da&is=67fe345a&hm=190101215885606ae46ae1b0f1669efa8b086763f63b6d5682eb2eb8efec4543&=&format=webp&quality=lossless" alt="ATOM CRUJIENTE">
+                        <h4>ATOM CRUJIENTE</h4>
+                        <p class="price">€35.00</p> <button class="add-btn" data-id="com4" data-name="ATOM CRUJIENTE" data-price="35.00">Añadir</button>
+                    </div>
+                     <div class="item-card" data-category="COMIDA ATOM">
+                        <img src="https://media.discordapp.net/attachments/677238617583910912/1361648968001388624/image.png?ex=67ff85ec&is=67fe346c&hm=b5ec1ff7e6ca5e3f07b2b359be26bd819408305852542a09a7645e2400b0329c&=&format=webp&quality=lossless" alt="BACON CHEESE ATOM">
+                        <h4>BACON CHEESE ATOM</h4>
+                        <p class="price">€35.00</p> <button class="add-btn" data-id="com5" data-name="BACON CHEESE ATOM" data-price="35.00">Añadir</button>
+                    </div>
+                     <div class="item-card" data-category="COMIDA ATOM">
+                        <img src="https://media.discordapp.net/attachments/677238617583910912/1361649223094767656/image.png?ex=67ff8629&is=67fe34a9&hm=6db01943d5e7b8b11c669df949fb5bfb9a9c11982bf4ca152effa8635219f820&=&format=webp&quality=lossless" alt="TOP FRIES ATOM">
+                        <h4>TOP FRIES ATOM</h4>
+                        <p class="price">€35.00</p> <button class="add-btn" data-id="com6" data-name="TOP FRIES ATOM" data-price="35.00">Añadir</button>
+                    </div>
+
+                     <div class="item-card" data-category="BEBIDAS EXTERNAS">
+                        <img src="https://media.discordapp.net/attachments/677238617583910912/1361649253168189541/image.png?ex=67ff8630&is=67fe34b0&hm=425ec3bafeec7025636b4d7b87472e8e74c7749d464b559311f8d6435708c386&=&format=webp&quality=lossless" alt="SMOOTHIE DE MORA">
+                        <h4>SMOOTHIE DE MORA</h4>
+                        <p class="price">€40.00</p> <button class="add-btn" data-id="bex1" data-name="SMOOTHIE DE MORA" data-price="40.00">Añadir</button>
+                    </div>
+                    <div class="item-card" data-category="BEBIDAS EXTERNAS">
+                        <img src="https://media.discordapp.net/attachments/677238617583910912/1361649335095529693/image.png?ex=67ff8643&is=67fe34c3&hm=a1271c9d7bac5b021fa80f9cf2b6adf14593fb30652aa3308e203d512d3583bf&=&format=webp&quality=lossless" alt="REFRESCO DE COLA">
+                        <h4>REFRESCO DE COLA</h4>
+                        <p class="price">€35.00</p> <button class="add-btn" data-id="bex2" data-name="REFRESCO DE COLA" data-price="35.00">Añadir</button>
+                    </div>
+
+                     <div class="item-card" data-category="COMIDA EXTERNAS">
+                        <img src="https://media.discordapp.net/attachments/677238617583910912/1361649281605435442/image.png?ex=67ff8636&is=67fe34b6&hm=3d735a8e8e9fcda2a7c4058e228e746a4e706a43ce14167eaf860b94b808b734&=&format=webp&quality=lossless" alt="CROQUETAS TERRAZA">
+                        <h4>CROQUETAS TERRAZA</h4>
+                        <p class="price">€40.00</p> <button class="add-btn" data-id="cex1" data-name="CROQUETAS TERRAZA" data-price="40.00">Añadir</button>
+                    </div>
+                     <div class="item-card" data-category="COMIDA EXTERNAS">
+                        <img src="https://media.discordapp.net/attachments/677238617583910912/1361649308805501088/image.png?ex=67ff863d&is=67fe34bd&hm=2b891e52b9ca606c3a05c6e91f6d102ea9e12313f4a69d61f0485386d343e24e&=&format=webp&quality=lossless" alt="DONUT DE FRESA">
+                        <h4>DONUT DE FRESA</h4>
+                        <p class="price">€40.00</p> <button class="add-btn" data-id="cex2" data-name="DONUT DE FRESA" data-price="40.00">Añadir</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <aside class="billing-section">
+            <h3>Cuenta</h3>
+            <ul class="bill-items">
+                </ul>
+            <div class="bill-summary">
+                <div><span>Subtotal</span> <span id="subtotal">€0.00</span></div>
+                <hr>
+                <div><strong>Total</strong> <strong id="total">€0.00</strong></div>
+            </div>
+            <div class="payment-method">
+                <h4>Método de Pago</h4>
+                <button class="payment-btn">Efectivo</button>
+            </div>
+
+            <button class="clear-bill-btn">Borrar Cuenta</button>
+
+            <button class="checkout-btn">Cobrar / Crear Ticket</button>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

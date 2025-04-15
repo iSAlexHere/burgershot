@@ -1,0 +1,324 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    background-color: #fcefee; /* Color de fondo general */
+    color: #333;
+    font-size: 16px; /* Tamaño base */
+}
+
+.pos-container {
+    display: flex;
+    min-height: 100vh;
+    padding: 15px;
+    gap: 15px; /* Espacio entre columnas */
+}
+
+/* --- Contenido Principal (Menú) --- */
+.main-content {
+    flex-grow: 1; /* Ocupa el espacio disponible */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 15px;
+    overflow-y: auto; /* Scroll si es necesario */
+    max-height: calc(100vh - 30px); /* Limita altura */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.main-content header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.main-content header input[type="search"] {
+    padding: 10px 15px;
+    border: 1px solid #eee;
+    border-radius: 20px;
+    width: 300px;
+    font-size: 1em;
+}
+
+.category-selector h3, .menu-items h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 1.2em;
+}
+
+.categories {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.category {
+    background-color: #f8f8f8;
+    border: 1px solid #eee;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    font-size: 0.9em;
+}
+.category i {
+   color: #aaa;
+   transition: color 0.3s ease;
+}
+.category:hover, .category.active {
+    background-color: #fff0ed; /* Rosa claro */
+    border-color: #e74c3c;
+    color: #e74c3c;
+}
+.category:hover i, .category.active i {
+     color: #e74c3c;
+}
+
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 15px;
+}
+
+.item-card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.item-card img {
+    max-width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.item-card h4 {
+    margin: 5px 0;
+    font-size: 0.95em;
+    color: #333;
+    flex-grow: 1; /* Para nombres largos */
+    min-height: 3em; /* Reserva espacio para ~2 líneas */
+    display: flex;          /* Centrar verticalmente si es corto */
+    align-items: center;
+    justify-content: center;
+}
+
+.item-card .price {
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+}
+
+.add-btn {
+    background-color: #e74c3c; /* Rojo */
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    font-size: 0.9em;
+}
+.add-btn:hover {
+    background-color: #c0392b; /* Rojo oscuro */
+}
+
+/* --- Sección de Factura/Cuenta --- */
+.billing-section {
+    width: 320px;
+    flex-shrink: 0; /* No encoger */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    max-height: calc(100vh - 30px); /* Limita altura */
+}
+
+.billing-section h3 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+.bill-items {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+    flex-grow: 1; /* Ocupa espacio vertical */
+    overflow-y: auto; /* Scroll si es necesario */
+}
+
+.bill-items li {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto; /* Nombre | Cantidad | Precio | X */
+    gap: 8px;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9em;
+}
+.bill-items li .item-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* ... si es muy largo */
+}
+.bill-items li .quantity {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+.qty-btn {
+    background: none;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    margin: 0 5px;
+    line-height: 18px; /* Ajuste para centrar */
+    font-size: 1em;
+    color: #555;
+    padding: 0;
+}
+.qty-btn:hover {
+    background-color: #eee;
+}
+.bill-items li .item-price {
+    font-weight: bold;
+    text-align: right;
+    white-space: nowrap;
+}
+.remove-item {
+    background: none;
+    border: none;
+    color: #e74c3c; /* Rojo */
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 0 5px;
+}
+.remove-item:hover {
+    color: #c0392b; /* Rojo oscuro */
+}
+
+.bill-summary {
+    margin-bottom: 20px;
+    font-size: 0.9em;
+}
+.bill-summary div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+.bill-summary hr {
+    border: none;
+    border-top: 1px dashed #ccc;
+    margin: 10px 0;
+}
+.bill-summary strong {
+    font-size: 1.1em;
+}
+
+.payment-method {
+    margin-bottom: 15px; /* Espacio antes de los botones de acción */
+}
+.payment-method h4 {
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 1em;
+    font-weight: normal;
+    color: #555;
+}
+.payment-btn {
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: default; /* No interactivo */
+    width: 100%;
+    text-align: center;
+    font-size: 1em;
+    color: #333;
+}
+
+/* Botón para borrar cuenta */
+.clear-bill-btn {
+    background-color: #f8f8f8;
+    color: #e74c3c;
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    width: 100%;
+    margin-bottom: 10px; /* Espacio antes del botón de cobrar */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.clear-bill-btn:hover {
+     background-color: #ffebee;
+     border-color: #e74c3c;
+}
+
+/* Botón principal de Cobrar */
+.checkout-btn {
+    background-color: #e74c3c; /* Rojo */
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    width: 100%;
+    margin-top: 0; /* Asegurarse que no tenga margen superior automático */
+    transition: background-color 0.3s ease;
+}
+.checkout-btn:hover {
+     background-color: #c0392b; /* Rojo oscuro */
+}
+.checkout-btn:disabled { /* Estilo cuando está deshabilitado (feedback copia) */
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+
+/* --- Ajustes para pantallas más pequeñas --- */
+@media (max-width: 768px) {
+    .pos-container {
+        flex-direction: column; /* Apila las columnas */
+        padding: 10px;
+        gap: 10px;
+    }
+    .main-content,
+    .billing-section {
+        max-height: none; /* Quita límite de altura en móvil */
+        width: auto; /* Ocupa ancho disponible */
+    }
+    .main-content { order: 1; } /* Menú primero */
+    .billing-section { order: 2; } /* Cuenta después */
+
+    .items-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); /* Tarjetas más pequeñas */
+    }
+    .main-content header input[type="search"] {
+        width: 100%; /* Barra de búsqueda ocupa todo */
+    }
+    .item-card h4 {
+        min-height: 2.5em; /* Ajustar altura mínima nombre */
+    }
+}
